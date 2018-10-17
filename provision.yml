@@ -11,10 +11,10 @@
     db_user: some
     db_pass: pass # keep in mind: vault!
   
-  become: yes # use sudo for root access
-  become_user: root
+  become: yes
+  become_method: sudo
 
-  tasks: # single tasks, done before e.g. a role
+  pre_tasks: # single tasks, done before e.g. a role
     - name: check custom config file
       local_action: stat path="{{playbook_dir}}/user-settings/settings_ws.yml"
       become: False
@@ -33,6 +33,7 @@
       maven_version: 3.5.4
       maven_home_parent_directory: /opt
       tags: ['java']
+    - { role: maven, tags: ['java'] } # configure maven
 
 - hosts: databases
   remote_user: vagrant
@@ -41,7 +42,7 @@
   become: yes
   become_user: root
 
-  tasks:
+  pre_tasks:
     - name: check custom config file
       local_action: stat path="{{playbook_dir}}/user-settings/settings_db.yml"
       become: False
@@ -54,4 +55,4 @@
 
   roles:
     - { role: common, tags: ['common'] }
-    - { role: database, tags: ['db'] }
+    - { role: geerlingguy.mysql, tags: ['db'] }

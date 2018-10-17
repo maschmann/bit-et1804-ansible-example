@@ -1,5 +1,10 @@
 ---
 
+- name: ensure settings directory exists
+  file:
+    state: directory
+    path: /home/vagrant/.m2
+
 - name: deploy local settings file
   template:
     src: ./settings.xml.j2

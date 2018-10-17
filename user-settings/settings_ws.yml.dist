@@ -1,4 +1,3 @@
 ---
 
-db_user: bit
-db_pass: bit12345
+# defaults for variables

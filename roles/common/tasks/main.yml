@@ -1,16 +1,24 @@
 ---
-- name: set hostname
+- name: set machine hostname
   hostname: name="{{inventory_hostname}}"    
 
 - name: install base packages
   apt: pkg={{item}} state=latest
   with_items:
+    - screen
+    - telnet
     - apt-transport-https
-    - ntfs-3g
-    - dirmngr
-    - software-properties-common
-    - zsh
-    - tar 
+    - logrotate
+    - vim
+    - curl
+    - git
+    - git-core
+    - git-extras
+    - strace
+    - sysstat
+    - build-essential
+    - wget
+    - bash-completion
     - unzip
     - bzip2
-    - golang
+    - zip

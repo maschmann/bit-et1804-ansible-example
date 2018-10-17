@@ -7,10 +7,14 @@ Based on [the vagrant virtual machine setup](https://github.com/maschmann/bit-et
 
 install:
 
-- ```ansible-galaxy install ansiblebit.oracle-java``` for webservers
 - ```ansible-galaxy install tecris.maven``` for webservers
+- ```ansible-galaxy install geerlingguy.mysql``` for database servers 
 
 ## commands
+
+- ```ansible-playbook -i inventory provision.yml```
+- ```ansible-playbook -i inventory provision.yml --limit webservers```
+- ```ansible-playbook -i inventory provision.yml --limit webservers --tags=java```
 
 ## sources
 
