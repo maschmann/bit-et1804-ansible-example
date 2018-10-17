@@ -1,0 +1,10 @@
+---
+all:
+  webservers:
+    debian101:
+    debian102:
+    debian103:
+
+  databases:
+    debian104:
+    debian105:
