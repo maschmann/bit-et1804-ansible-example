@@ -1,0 +1,16 @@
+---
+- name: set hostname
+  hostname: name="{{inventory_hostname}}"    
+
+- name: install base packages
+  apt: pkg={{item}} state=latest
+  with_items:
+    - apt-transport-https
+    - ntfs-3g
+    - dirmngr
+    - software-properties-common
+    - zsh
+    - tar 
+    - unzip
+    - bzip2
+    - golang

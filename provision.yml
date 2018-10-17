@@ -1,12 +1,57 @@
 ---
+
 - hosts: webservers
-  vars: {}
-  ansible_ssh_user: vagrant
-  ansible_ssh_pass: vagrant # just for demonstration purposes!
-  become: True
+  remote_user: vagrant
+
+  vars: # optional global variable definitions    
+    ansible_ssh_pass: vagrant # just for demonstration purposes! -> use the vault!
+    
+    # defaults
+    java_version: 0
+    db_user: some
+    db_pass: pass # keep in mind: vault!
+  
+  become: yes # use sudo for root access
   become_user: root
 
-  tasks: []
+  tasks: # single tasks, done before e.g. a role
+    - name: check custom config file
+      local_action: stat path="{{playbook_dir}}/user-settings/settings_ws.yml"
+      become: False
+      register: custom_settings_root
+
+    - name: include custom settings
+      include_vars:
+        file: "{{playbook_dir}}/user-settings/settings_ws.yml"
+      when: custom_settings_root.stat.exists == True
 
   roles:
     - { role: common, tags: ['common'] }
+    - { role: java, tags: ['java'] } 
+    - role: tecris.maven
+      maven_major: 3
+      maven_version: 3.5.4
+      maven_home_parent_directory: /opt
+      tags: ['java']
+
+- hosts: databases
+  remote_user: vagrant
+  vars:
+    ansible_ssh_pass: vagrant
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: check custom config file
+      local_action: stat path="{{playbook_dir}}/user-settings/settings_db.yml"
+      become: False
+      register: custom_settings_root
+
+    - name: include custom settings
+      include_vars:
+        file: "{{playbook_dir}}/user-settings/settings_db.yml"
+      when: custom_settings_root.stat.exists == True
+
+  roles:
+    - { role: common, tags: ['common'] }
+    - { role: database, tags: ['db'] }

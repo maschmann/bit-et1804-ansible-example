@@ -1,0 +1,18 @@
+---
+all:
+  children:
+    webservers:
+      hosts:
+        debian101:
+          ansible_host: 192.168.56.101
+        debian102:
+          ansible_host: 192.168.56.102
+        debian103:
+          ansible_host: 192.168.56.103
+
+    databases:
+      hosts:
+        debian104:
+          ansible_host: 192.168.56.104
+        debian105:
+          ansible_host: 192.168.56.105

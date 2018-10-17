@@ -1,0 +1,9 @@
+---
+
+- name: deploy local settings file
+  template:
+    src: ./settings.xml.j2
+    dest: /home/vagrant/.m2/settings.xml
+    owner: root
+    group: root
+    mode: 755

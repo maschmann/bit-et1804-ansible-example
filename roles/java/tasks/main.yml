@@ -1,0 +1,28 @@
+---
+
+- debconf:
+    name: oracle-java8-installer
+    question: shared/accepted-oracle-license-v1-1
+    value: "true"
+    vtype: select
+
+- name: make sure repo is absent
+  apt_repository:
+    repo: ppa:webupd8team/java
+    state: absent
+
+- name: make sure repo is present
+  apt_repository:
+    repo: ppa:webupd8team/java
+    state: present
+    codename: bionic
+
+- name: updating
+  apt: 
+    update_cache: yes
+
+- name: install java 8
+  apt: 
+    pkg: oracle-java8-installer
+    state: present
+    update_cache: yes
