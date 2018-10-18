@@ -33,7 +33,7 @@
       maven_version: 3.5.4
       maven_home_parent_directory: /opt
       tags: ['java']
-    - { role: maven, tags: ['java'] } # configure maven
+    - { role: maven, tags: ['java', 'maven'] } # configure maven
 
 - hosts: databases
   remote_user: vagrant

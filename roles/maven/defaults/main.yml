@@ -1,3 +1,5 @@
 ---
 
-# optional variable defaults, e.g. for templates
+maven_security_password: bit12345 
+maven_release_password: bit12345
+maven_snapshot_password: bit12345

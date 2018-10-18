@@ -4,11 +4,16 @@
   file:
     state: directory
     path: /home/vagrant/.m2
+    owner: vagrant
+    group: vagrant
 
-- name: deploy local settings file
+- name: deploy user settings files
   template:
-    src: ./settings.xml.j2
-    dest: /home/vagrant/.m2/settings.xml
-    owner: root
-    group: root
-    mode: 755
+    src: "{{item.path}}"
+    dest: "{{item.dest}}"
+    owner: "{{item.owner}}"
+    group: "{{item.group}}"
+    mode: "{{item.mode}}"
+  with_items:
+    - { path: './settings.xml.j2', dest: '/home/vagrant/.m2/settings.xml', owner: vagrant, group: vagrant, mode: 644 }
+    - { path: './settings-security.xml.j2', dest: '/home/vagrant/.m2/settings-security.xml', owner: vagrant, group: vagrant, mode: 644 }
